@@ -45,12 +45,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phoneNumber: 1
-  _hasBeforeState: 1
+  _hasBeforeState: 0
   _audioBeforeState: Number 1 on Before State
   _hasRightState: 1
   _audioRightState: Number 1 on Right State
   _hasAfterState: 1
   _audioAfterState: Number 1 on After State
-  _isAutoTalk: 0
-  _possibleAutoTalkNumbers: []
+  _isAutoTalk: 1
+  _possibleAutoTalkNumbers:
+  - {fileID: 0}
+  - {fileID: 0}
   _leaveNumber: {fileID: 0}
+  _unlockNewAudios: 1
+  _audiosToUnlock:
+  - {fileID: 0}
