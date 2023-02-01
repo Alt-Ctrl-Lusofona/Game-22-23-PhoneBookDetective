@@ -39,7 +39,7 @@ public class BruteCodeGame : MonoBehaviour
 
     private void Update()
     {
-        CheckPlayerInputPC();
+        //CheckPlayerInputPC();
         if (_disking)
         {
             _currentTime += Time.deltaTime;
@@ -52,35 +52,35 @@ public class BruteCodeGame : MonoBehaviour
         }
     }
 
-    private void CheckPlayerInputPC()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-            Message("0");
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            Message("1");
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            Message("2");
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            Message("3");
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            Message("4");
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-            Message("5");
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-            Message("6");
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-            Message("7");
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-            Message("8");
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-            Message("9");
-        if (Input.GetKeyDown(KeyCode.I))
-            Message("i");
-        if (Input.GetKeyDown(KeyCode.O))
-            Message("o");
-        if (Input.GetKeyDown(KeyCode.S))
-            Message("s");
-    }
+    // private void CheckPlayerInputPC()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Alpha0))
+    //         Message("0");
+    //     if (Input.GetKeyDown(KeyCode.Alpha1))
+    //         Message("1");
+    //     if (Input.GetKeyDown(KeyCode.Alpha2))
+    //         Message("2");
+    //     if (Input.GetKeyDown(KeyCode.Alpha3))
+    //         Message("3");
+    //     if (Input.GetKeyDown(KeyCode.Alpha4))
+    //         Message("4");
+    //     if (Input.GetKeyDown(KeyCode.Alpha5))
+    //         Message("5");
+    //     if (Input.GetKeyDown(KeyCode.Alpha6))
+    //         Message("6");
+    //     if (Input.GetKeyDown(KeyCode.Alpha7))
+    //         Message("7");
+    //     if (Input.GetKeyDown(KeyCode.Alpha8))
+    //         Message("8");
+    //     if (Input.GetKeyDown(KeyCode.Alpha9))
+    //         Message("9");
+    //     if (Input.GetKeyDown(KeyCode.I))
+    //         Message("i");
+    //     if (Input.GetKeyDown(KeyCode.O))
+    //         Message("o");
+    //     if (Input.GetKeyDown(KeyCode.S))
+    //         Message("s");
+    // }
 
     private void Call()
     {
@@ -95,7 +95,10 @@ public class BruteCodeGame : MonoBehaviour
             else if (_companyThree.Number == _code)
             {
                 if (_companyThree.State == PhoneState.Right)
+                {
+                    Debug.Log("Change writter state");
                     _writter.ChangeState(PhoneState.Right);
+                }
                 _companyThree.Play();
                 _onCallWithCompany = false;
                 _hanging = true;
@@ -171,25 +174,30 @@ public class BruteCodeGame : MonoBehaviour
     //         ChangeCode(msg);
     // }
 
-    private void Message(string msg)
+    void OnMessageArrived(string msg)
     {
-        Debug.Log(msg);
+        Debug.Log("#" + msg + "#");
         if (!_started)
         {
-            if (msg == "s")
+            Debug.Log("Has not stated");
+            if (msg.Contains('s'))
             {
+                Debug.Log("StartCall");
                 _startCall.Play();
                 _started = true;
             }
             return;
         }
-
-        if (msg == "i")
+        else if (msg.Contains('i'))
             _hanging = true;
-        else if (msg == "o")
+        else if (msg.Contains('o'))
             _hanging = false;  
         else if (!_hanging)
-            ChangeCode(msg);
+        {
+            char[] charArray = msg.ToCharArray();
+            ChangeCode(charArray[0].ToString());
+        }
+            
     }
 
     private void ChangeCode(string code)
